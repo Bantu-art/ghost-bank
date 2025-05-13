@@ -19,3 +19,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+
+class TrustedContact(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='trusted_contacts')
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    relationship = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.name} ({self.relationship})"
